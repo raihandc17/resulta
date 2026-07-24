@@ -1,0 +1,17 @@
+.list {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding-left: 20px;
+}
+.list_item {
+  padding-top: 15px;
+  font-size: 24px;
+}
+.list_item:hover,
+.list_item:active {
+  background-color: rgb(255, 255, 255);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
