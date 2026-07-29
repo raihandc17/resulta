@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
-import styles from "./page.module.css";
-import DefaultDashboard from "./components/defaultComponent/defaulDashboard";
+
+import DefaultDashboard from "../components/defaultComponent/defaultDashboard";
 //import ProtectedDashboard from "./components/private/protectedDashboard";
 
 export default function Home() {

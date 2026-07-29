@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Button from "../components/Button/Button";
+import Button from "../../components/Button/Button";
 import styles from "./register.module.css";
 
 export default function RegisterPage() {
