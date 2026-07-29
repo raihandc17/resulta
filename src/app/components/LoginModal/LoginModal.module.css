@@ -41,6 +41,9 @@
   border: 1px solid #ccc;
   border-radius: 6px;
 }
+.form input :focus {
+  border-color: #2563eb;
+}
 
 .form button {
   padding: 12px;

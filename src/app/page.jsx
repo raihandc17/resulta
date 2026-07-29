@@ -6,11 +6,11 @@ import DefaultDashboard from "./components/defaultComponent/defaulDashboard";
 //import ProtectedDashboard from "./components/private/protectedDashboard";
 
 export default function Home() {
-  const [isLoggedin, setIsloggedin] = useState(true);
+  const [isLoggedin, setIsloggedin] = useState(false);
   return (
     <div>
       <main>
-        <div>{isLoggedin ? <DefaultDashboard /> : "logged in"}</div>
+        <div>{isLoggedin ? "logged in" : <DefaultDashboard />}</div>
       </main>
     </div>
   );

@@ -16,6 +16,7 @@ import LoginModal from "../LoginModal/LoginModal";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const services = [
     "Web Development",
     "Mobile App Development",
@@ -30,6 +31,30 @@ export default function Home() {
       setIsModalOpen(true);
     }
   }, [searchParams]);
+  useEffect(() => {
+    const ids = ["home", "about", "services", "contact"];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-80px 0px -40% 0px",
+        threshold: 0.2,
+      },
+    );
+
+    ids.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -37,11 +62,40 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.logo}>TechSolveX</div>
 
-        <nav className={styles.nav}>
+        {/* <nav className={styles.nav}>
           <a href="#home">Home</a>
           <a href="#about">About Us</a>
           <a href="#services">Services</a>
           <a href="#contact">Contact</a>
+        </nav> */}
+        <nav className={styles.nav}>
+          <a
+            href="#home"
+            className={activeSection === "home" ? styles.active : ""}
+          >
+            Home
+          </a>
+
+          <a
+            href="#about"
+            className={activeSection === "about" ? styles.active : ""}
+          >
+            About
+          </a>
+
+          <a
+            href="#services"
+            className={activeSection === "services" ? styles.active : ""}
+          >
+            Services
+          </a>
+
+          <a
+            href="#contact"
+            className={activeSection === "contact" ? styles.active : ""}
+          >
+            Contact
+          </a>
         </nav>
 
         <div>
@@ -60,13 +114,13 @@ export default function Home() {
 
           <p>
             We build websites, web applications, mobile apps, and digital
-            solutions that help your business grow.
+            solutions that help your business grow. We also transform raw data
+            into meaningful insights through data analytics, interactive
+            dashboards, business intelligence, and predictive analytics. Our
+            solutions help businesses monitor performance, identify trends,
+            optimize operations, and make informed decisions that drive
+            growth.....
           </p>
-
-          <div className={styles.heroButtons}>
-            <button className={styles.primary}>Get Started</button>
-            <button className={styles.secondary}>Learn More</button>
-          </div>
         </div>
 
         <div className={styles.heroImage}>
@@ -108,7 +162,6 @@ export default function Home() {
       {/* Services */}
       <section id="services" className={styles.services}>
         <h2>Our Services</h2>
-
         <div className={styles.serviceGrid}>
           {services.map((service) => (
             <div key={service} className={styles.serviceCard}>
@@ -119,6 +172,176 @@ export default function Home() {
               </p>
             </div>
           ))}
+        </div>
+        <div className={styles.expertise}>
+          <h2>Our Technology Expertise</h2>
+
+          <p className={styles.expertiseIntro}>
+            We combine modern software engineering with advanced data analytics
+            to deliver scalable, secure, and intelligent digital solutions for
+            businesses of all sizes.
+          </p>
+
+          <div className={styles.expertiseGrid}>
+            <div className={styles.expertiseCard}>
+              <h3>🌐 Web & Mobile Development</h3>
+
+              <p>
+                We build responsive websites, enterprise web applications,
+                mobile applications, and cloud-native solutions using modern
+                technologies.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Frontend:</strong> React.js, Next.js, React Native,
+                  Flutter, JavaScript, TypeScript
+                </li>
+                <li>
+                  <strong>UI:</strong> HTML5, CSS3, Tailwind CSS, Bootstrap,
+                  SCSS, Material UI
+                </li>
+                <li>
+                  <strong>Backend:</strong> Node.js, Express.js, Python, Go
+                </li>
+                <li>
+                  <strong>Database:</strong> PostgreSQL, MySQL, MongoDB, Redis
+                </li>
+                <li>
+                  <strong>API:</strong> REST API, GraphQL
+                </li>
+                <li>
+                  <strong>Authentication:</strong> JWT, OAuth, Firebase Auth
+                </li>
+                <li>
+                  <strong>Deployment:</strong> Docker, AWS, Azure, GCP, Vercel,
+                  Netlify
+                </li>
+              </ul>
+            </div>
+
+            <div className={styles.expertiseCard}>
+              <h3>📊 Data Analytics & Business Intelligence</h3>
+
+              <p>
+                We transform business data into meaningful insights through
+                visualization, reporting, predictive analytics, and business
+                intelligence solutions.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Languages:</strong> Python, SQL
+                </li>
+                <li>
+                  <strong>Analytics:</strong> Pandas, NumPy, SciPy
+                </li>
+                <li>
+                  <strong>Visualization:</strong> Power BI, Tableau, Looker
+                  Studio, Excel, Google Sheets
+                </li>
+                <li>
+                  <strong>Machine Learning:</strong> Scikit-learn, TensorFlow
+                </li>
+                <li>
+                  <strong>ETL:</strong> Power Query, Python ETL Pipelines,
+                  Apache Airflow
+                </li>
+                <li>
+                  <strong>Cloud:</strong> AWS, Azure, Google Cloud Platform
+                </li>
+                <li>
+                  <strong>Reporting:</strong> KPI Dashboards, Forecasting,
+                  Business Intelligence
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>{" "}
+        <div className={styles.expertise}>
+          <h2>Our Technology Expertise</h2>
+
+          <p className={styles.expertiseIntro}>
+            We combine modern software engineering with advanced data analytics
+            to deliver scalable, secure, and intelligent digital solutions for
+            businesses of all sizes.
+          </p>
+
+          <div className={styles.expertiseGrid}>
+            <div className={styles.expertiseCard}>
+              <h3>🌐 Web & Mobile Development</h3>
+
+              <p>
+                We build responsive websites, enterprise web applications,
+                mobile applications, and cloud-native solutions using modern
+                technologies.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Frontend:</strong> React.js, Next.js, React Native,
+                  Flutter, JavaScript, TypeScript
+                </li>
+                <li>
+                  <strong>UI:</strong> HTML5, CSS3, Tailwind CSS, Bootstrap,
+                  SCSS, Material UI
+                </li>
+                <li>
+                  <strong>Backend:</strong> Node.js, Express.js, Python, Go
+                </li>
+                <li>
+                  <strong>Database:</strong> PostgreSQL, MySQL, MongoDB, Redis
+                </li>
+                <li>
+                  <strong>API:</strong> REST API, GraphQL
+                </li>
+                <li>
+                  <strong>Authentication:</strong> JWT, OAuth, Firebase Auth
+                </li>
+                <li>
+                  <strong>Deployment:</strong> Docker, AWS, Azure, GCP, Vercel,
+                  Netlify
+                </li>
+              </ul>
+            </div>
+
+            <div className={styles.expertiseCard}>
+              <h3>📊 Data Analytics & Business Intelligence</h3>
+
+              <p>
+                We transform business data into meaningful insights through
+                visualization, reporting, predictive analytics, and business
+                intelligence solutions.
+              </p>
+
+              <ul>
+                <li>
+                  <strong>Languages:</strong> Python, SQL
+                </li>
+                <li>
+                  <strong>Analytics:</strong> Pandas, NumPy, SciPy
+                </li>
+                <li>
+                  <strong>Visualization:</strong> Power BI, Tableau, Looker
+                  Studio, Excel, Google Sheets
+                </li>
+                <li>
+                  <strong>Machine Learning:</strong> Scikit-learn, TensorFlow
+                </li>
+                <li>
+                  <strong>ETL:</strong> Power Query, Python ETL Pipelines,
+                  Apache Airflow
+                </li>
+                <li>
+                  <strong>Cloud:</strong> AWS, Azure, Google Cloud Platform
+                </li>
+                <li>
+                  <strong>Reporting:</strong> KPI Dashboards, Forecasting,
+                  Business Intelligence
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -35,7 +35,15 @@
   background-color: rgba(207, 11, 112, 0.9);
   color: white;
 }
-
+.btnColor1 {
+  background-color: rgba(69, 177, 204, 0.441);
+  color: rgb(10, 9, 9);
+  margin-left: 105px;
+  margin-top: 10px;
+}
+.btnColor2:hover {
+  background-color: rgba(69, 177, 204, 0.441);
+}
 .danger {
   background-color: #dc2626;
   color: white;

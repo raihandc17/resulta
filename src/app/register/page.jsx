@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Button from "../components/Button/Button";
 import styles from "./register.module.css";
 
 export default function RegisterPage() {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -34,9 +37,16 @@ export default function RegisterPage() {
           <button className={styles.registerBtn}>Register</button>
         </form>
 
-        <div className={styles.login}>
+        <div className={styles.login} variant="btnColor2">
           Already have an account?
-          <Link href="/?login=true"> Login</Link>
+          <Button
+            variant="btnColor2"
+            onClick={() => {
+              router.push("/");
+            }}
+          >
+            Go to Login page
+          </Button>
         </div>
       </div>
     </div>
