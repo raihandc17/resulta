@@ -60,10 +60,12 @@ const STATS = [
 const TECH_STACK = {
   engineering: [
     "React",
+    "TypeScript",
     "Next.js",
     "Node.js",
-    "TypeScript",
+    "Go (Golang)",
     "MongoDB",
+    "SQL",
     "PostgreSQL",
     "REST & GraphQL",
     "Docker",
@@ -78,6 +80,9 @@ const TECH_STACK = {
     "ETL Pipelines",
     "KPI Dashboards",
     "Forecasting",
+    "Microsoft Excel",
+    "Google Sheets",
+    "Looker Studio",
   ],
 };
 
@@ -136,7 +141,7 @@ export default function DefaultDashboard() {
 
         <div className={styles.headerActions}>
           <Button onClick={() => setIsModalOpen(true)}>Login</Button>
-          <Link href="/register">
+          <Link href="/register" className={styles.headerLink}>
             <Button variant="secondary">Register</Button>
           </Link>
         </div>
@@ -219,7 +224,10 @@ export default function DefaultDashboard() {
         </div>
       </section>
 
-      <section id="services" className={`${styles.section} ${styles.servicesSection}`}>
+      <section
+        id="services"
+        className={`${styles.section} ${styles.servicesSection}`}
+      >
         <div className={styles.sectionHeader}>
           <span className={styles.eyebrow}>Services</span>
           <h2>What we do for your business</h2>
@@ -270,7 +278,10 @@ export default function DefaultDashboard() {
         </div>
       </section>
 
-      <section id="contact" className={`${styles.section} ${styles.contactSection}`}>
+      <section
+        id="contact"
+        className={`${styles.section} ${styles.contactSection}`}
+      >
         <div className={styles.contactLayout}>
           <div className={styles.contactInfo}>
             <span className={styles.eyebrow}>Contact</span>
@@ -282,7 +293,7 @@ export default function DefaultDashboard() {
             <ul className={styles.contactMeta}>
               <li>
                 <strong>Email</strong>
-                <span>hello@techsolvex.com</span>
+                <span>bdxenon17@gmail.com</span>
               </li>
               <li>
                 <strong>Location</strong>
@@ -323,7 +334,9 @@ export default function DefaultDashboard() {
             <Link href="/register">Register</Link>
           </div>
         </div>
-        <p className={styles.footerCopy}>© 2026 TechSolveX. All rights reserved.</p>
+        <p className={styles.footerCopy}>
+          © 2026 TechSolveX. All rights reserved.
+        </p>
       </footer>
 
       <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

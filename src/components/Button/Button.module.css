@@ -1,5 +1,5 @@
 .button {
-  margin-left: 10px;
+  margin: 0;
   padding: 12px 28px;
   border: none;
   border-radius: 6px;
@@ -27,7 +27,7 @@
 
 .secondary {
   background-color: rgba(207, 11, 112, 0.843);
-  color: rgba(240, 242, 247, 0.848);
+  color: rgba(245, 246, 247, 0.995);
   /* border: 2px solid #2563eb; */
 }
 
