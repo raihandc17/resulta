@@ -1,39 +1,98 @@
-// import React from "react";
-
-// function ProtectedDashboard() {
-//   return <div>Protected dashboard</div>;
-// }
-
-// export default ProtectedDashboard;
 "use client";
+
+import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+import developerImg from "@/assets/developer.jpeg";
 import Button from "../Button/Button";
-import styles from "./defaultDashboard.module.css";
 import LoginModal from "../LoginModal/LoginModal";
+import styles from "./defaultDashboard.module.css";
 
-export default function Home() {
+const NAV_SECTIONS = ["home", "about", "services", "contact"];
+
+const SERVICES = [
+  {
+    title: "Web Development",
+    description:
+      "Fast, scalable websites and web apps built with modern frameworks.",
+    icon: "◈",
+  },
+  {
+    title: "Mobile Apps",
+    description:
+      "Cross-platform experiences with polished UI and reliable performance.",
+    icon: "◎",
+  },
+  {
+    title: "UI/UX Design",
+    description:
+      "User-centered interfaces that look professional and convert visitors.",
+    icon: "✦",
+  },
+  {
+    title: "Cloud Solutions",
+    description:
+      "Secure deployment, hosting, and infrastructure tailored to your scale.",
+    icon: "☁",
+  },
+  {
+    title: "Data & Analytics",
+    description:
+      "Dashboards, KPI tracking, and insights that support smarter decisions.",
+    icon: "▣",
+  },
+  {
+    title: "Digital Marketing",
+    description:
+      "SEO and growth strategies that increase visibility and engagement.",
+    icon: "↗",
+  },
+];
+
+const STATS = [
+  { value: "120+", label: "Projects delivered" },
+  { value: "8+", label: "Years experience" },
+  { value: "98%", label: "Client satisfaction" },
+];
+
+const TECH_STACK = {
+  engineering: [
+    "React",
+    "Next.js",
+    "Node.js",
+    "TypeScript",
+    "MongoDB",
+    "PostgreSQL",
+    "REST & GraphQL",
+    "Docker",
+    "AWS / Vercel",
+  ],
+  analytics: [
+    "Python",
+    "SQL",
+    "Power BI",
+    "Tableau",
+    "Pandas",
+    "ETL Pipelines",
+    "KPI Dashboards",
+    "Forecasting",
+  ],
+};
+
+export default function DefaultDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const services = [
-    "Web Development",
-    "Mobile App Development",
-    "UI/UX Design",
-    "Cloud Solutions",
-    "SEO Optimization",
-    "Digital Marketing",
-  ];
   const searchParams = useSearchParams();
+
   useEffect(() => {
     if (searchParams.get("login") === "true") {
       setIsModalOpen(true);
     }
   }, [searchParams]);
-  useEffect(() => {
-    const ids = ["home", "about", "services", "contact"];
 
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -43,12 +102,12 @@ export default function Home() {
         });
       },
       {
-        rootMargin: "-80px 0px -40% 0px",
-        threshold: 0.2,
+        rootMargin: "-88px 0px -45% 0px",
+        threshold: 0.15,
       },
     );
 
-    ids.forEach((id) => {
+    NAV_SECTIONS.forEach((id) => {
       const section = document.getElementById(id);
       if (section) observer.observe(section);
     });
@@ -57,314 +116,217 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      {/* Navbar */}
+    <div className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.logo}>TechSolveX</div>
+        <Link href="#home" className={styles.logo}>
+          TechSolve<span>X</span>
+        </Link>
 
-        {/* <nav className={styles.nav}>
-          <a href="#home">Home</a>
-          <a href="#about">About Us</a>
-          <a href="#services">Services</a>
-          <a href="#contact">Contact</a>
-        </nav> */}
-        <nav className={styles.nav}>
-          <a
-            href="#home"
-            className={activeSection === "home" ? styles.active : ""}
-          >
-            Home
-          </a>
-
-          <a
-            href="#about"
-            className={activeSection === "about" ? styles.active : ""}
-          >
-            About
-          </a>
-
-          <a
-            href="#services"
-            className={activeSection === "services" ? styles.active : ""}
-          >
-            Services
-          </a>
-
-          <a
-            href="#contact"
-            className={activeSection === "contact" ? styles.active : ""}
-          >
-            Contact
-          </a>
+        <nav className={styles.nav} aria-label="Main">
+          {NAV_SECTIONS.map((id) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={activeSection === id ? styles.navActive : undefined}
+            >
+              {id.charAt(0).toUpperCase() + id.slice(1)}
+            </a>
+          ))}
         </nav>
 
-        <div>
+        <div className={styles.headerActions}>
           <Button onClick={() => setIsModalOpen(true)}>Login</Button>
-          {/* <Button variant="secondary">Register</Button> */}
           <Link href="/register">
             <Button variant="secondary">Register</Button>
           </Link>
         </div>
       </header>
 
-      {/* Hero */}
       <section id="home" className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1>Build Your Business With Modern Technology</h1>
-
-          <p>
-            We build websites, web applications, mobile apps, and digital
-            solutions that help your business grow. We also transform raw data
-            into meaningful insights through data analytics, interactive
-            dashboards, business intelligence, and predictive analytics. Our
-            solutions help businesses monitor performance, identify trends,
-            optimize operations, and make informed decisions that drive
-            growth.....
+          <span className={styles.badge}>Software · Data · Growth</span>
+          <h1>
+            Build smarter products with{" "}
+            <span className={styles.heroAccent}>modern technology</span>
+          </h1>
+          <p className={styles.heroLead}>
+            TechSolveX partners with startups and enterprises to design, build,
+            and scale digital platforms—from customer-facing apps to analytics
+            that drive decisions.
           </p>
+          <div className={styles.heroButtons}>
+            <a href="#contact" className={styles.ctaPrimary}>
+              Start a project
+            </a>
+            <a href="#services" className={styles.ctaSecondary}>
+              View services
+            </a>
+          </div>
+          <ul className={styles.stats}>
+            {STATS.map((stat) => (
+              <li key={stat.label}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className={styles.heroImage}>
-          <img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=700"
-            alt="Developer"
-          />
+        <div className={styles.heroVisual}>
+          <div className={styles.heroImageFrame}>
+            <Image
+              src={developerImg}
+              alt="Team collaborating on technology projects"
+              fill
+              sizes="(max-width: 900px) 100vw, 480px"
+              priority
+              className={styles.heroImage}
+            />
+          </div>
+          <div className={styles.heroCard}>
+            <p>End-to-end delivery</p>
+            <span>Strategy → Design → Build → Launch</span>
+          </div>
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className={styles.about}>
-        <h2>About Us</h2>
-
-        <p>
-          We are a software company providing high-quality web development,
-          mobile applications, UI/UX design, and cloud solutions for startups
-          and enterprises.
-        </p>
+      <section id="about" className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.eyebrow}>About us</span>
+          <h2>Technology partner you can trust</h2>
+          <p>
+            We combine engineering excellence with clear communication, so every
+            release is reliable, secure, and aligned with your business goals.
+          </p>
+        </div>
 
         <div className={styles.aboutCards}>
-          <div className={styles.card}>
+          <article className={styles.aboutCard}>
+            <div className={styles.aboutIcon}>M</div>
             <h3>Mission</h3>
-            <p>Deliver innovative software solutions worldwide.</p>
-          </div>
-
-          <div className={styles.card}>
+            <p>Deliver innovative software that creates measurable impact.</p>
+          </article>
+          <article className={styles.aboutCard}>
+            <div className={styles.aboutIcon}>V</div>
             <h3>Vision</h3>
-            <p>Become a trusted technology partner for every business.</p>
-          </div>
-
-          <div className={styles.card}>
-            <h3>Values</h3>
-            <p>Quality, Integrity, Innovation, and Customer Success.</p>
-          </div>
+            <p>Become the long-term tech partner for ambitious teams.</p>
+          </article>
+          <article className={styles.aboutCard}>
+            <div className={styles.aboutIcon}>C</div>
+            <h3>Commitment</h3>
+            <p>Quality, integrity, and support at every stage of delivery.</p>
+          </article>
         </div>
       </section>
 
-      {/* Services */}
-      <section id="services" className={styles.services}>
-        <h2>Our Services</h2>
+      <section id="services" className={`${styles.section} ${styles.servicesSection}`}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.eyebrow}>Services</span>
+          <h2>What we do for your business</h2>
+          <p>
+            Full-stack capabilities from first prototype to production systems
+            your team can scale with confidence.
+          </p>
+        </div>
+
         <div className={styles.serviceGrid}>
-          {services.map((service) => (
-            <div key={service} className={styles.serviceCard}>
-              <h3>{service}</h3>
-              <p>
-                Professional {service.toLowerCase()} solutions for your
-                business.
-              </p>
-            </div>
+          {SERVICES.map((service) => (
+            <article key={service.title} className={styles.serviceCard}>
+              <span className={styles.serviceIcon} aria-hidden>
+                {service.icon}
+              </span>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+            </article>
           ))}
         </div>
-        <div className={styles.expertise}>
-          <h2>Our Technology Expertise</h2>
+      </section>
 
-          <p className={styles.expertiseIntro}>
-            We combine modern software engineering with advanced data analytics
-            to deliver scalable, secure, and intelligent digital solutions for
-            businesses of all sizes.
-          </p>
+      <section className={styles.expertise}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.eyebrow}>Expertise</span>
+          <h2>Tools we work with every day</h2>
+        </div>
 
-          <div className={styles.expertiseGrid}>
-            <div className={styles.expertiseCard}>
-              <h3>🌐 Web & Mobile Development</h3>
-
-              <p>
-                We build responsive websites, enterprise web applications,
-                mobile applications, and cloud-native solutions using modern
-                technologies.
-              </p>
-
-              <ul>
-                <li>
-                  <strong>Frontend:</strong> React.js, Next.js, React Native,
-                  Flutter, JavaScript, TypeScript
-                </li>
-                <li>
-                  <strong>UI:</strong> HTML5, CSS3, Tailwind CSS, Bootstrap,
-                  SCSS, Material UI
-                </li>
-                <li>
-                  <strong>Backend:</strong> Node.js, Express.js, Python, Go
-                </li>
-                <li>
-                  <strong>Database:</strong> PostgreSQL, MySQL, MongoDB, Redis
-                </li>
-                <li>
-                  <strong>API:</strong> REST API, GraphQL
-                </li>
-                <li>
-                  <strong>Authentication:</strong> JWT, OAuth, Firebase Auth
-                </li>
-                <li>
-                  <strong>Deployment:</strong> Docker, AWS, Azure, GCP, Vercel,
-                  Netlify
-                </li>
-              </ul>
-            </div>
-
-            <div className={styles.expertiseCard}>
-              <h3>📊 Data Analytics & Business Intelligence</h3>
-
-              <p>
-                We transform business data into meaningful insights through
-                visualization, reporting, predictive analytics, and business
-                intelligence solutions.
-              </p>
-
-              <ul>
-                <li>
-                  <strong>Languages:</strong> Python, SQL
-                </li>
-                <li>
-                  <strong>Analytics:</strong> Pandas, NumPy, SciPy
-                </li>
-                <li>
-                  <strong>Visualization:</strong> Power BI, Tableau, Looker
-                  Studio, Excel, Google Sheets
-                </li>
-                <li>
-                  <strong>Machine Learning:</strong> Scikit-learn, TensorFlow
-                </li>
-                <li>
-                  <strong>ETL:</strong> Power Query, Python ETL Pipelines,
-                  Apache Airflow
-                </li>
-                <li>
-                  <strong>Cloud:</strong> AWS, Azure, Google Cloud Platform
-                </li>
-                <li>
-                  <strong>Reporting:</strong> KPI Dashboards, Forecasting,
-                  Business Intelligence
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>{" "}
-        <div className={styles.expertise}>
-          <h2>Our Technology Expertise</h2>
-
-          <p className={styles.expertiseIntro}>
-            We combine modern software engineering with advanced data analytics
-            to deliver scalable, secure, and intelligent digital solutions for
-            businesses of all sizes.
-          </p>
-
-          <div className={styles.expertiseGrid}>
-            <div className={styles.expertiseCard}>
-              <h3>🌐 Web & Mobile Development</h3>
-
-              <p>
-                We build responsive websites, enterprise web applications,
-                mobile applications, and cloud-native solutions using modern
-                technologies.
-              </p>
-
-              <ul>
-                <li>
-                  <strong>Frontend:</strong> React.js, Next.js, React Native,
-                  Flutter, JavaScript, TypeScript
-                </li>
-                <li>
-                  <strong>UI:</strong> HTML5, CSS3, Tailwind CSS, Bootstrap,
-                  SCSS, Material UI
-                </li>
-                <li>
-                  <strong>Backend:</strong> Node.js, Express.js, Python, Go
-                </li>
-                <li>
-                  <strong>Database:</strong> PostgreSQL, MySQL, MongoDB, Redis
-                </li>
-                <li>
-                  <strong>API:</strong> REST API, GraphQL
-                </li>
-                <li>
-                  <strong>Authentication:</strong> JWT, OAuth, Firebase Auth
-                </li>
-                <li>
-                  <strong>Deployment:</strong> Docker, AWS, Azure, GCP, Vercel,
-                  Netlify
-                </li>
-              </ul>
-            </div>
-
-            <div className={styles.expertiseCard}>
-              <h3>📊 Data Analytics & Business Intelligence</h3>
-
-              <p>
-                We transform business data into meaningful insights through
-                visualization, reporting, predictive analytics, and business
-                intelligence solutions.
-              </p>
-
-              <ul>
-                <li>
-                  <strong>Languages:</strong> Python, SQL
-                </li>
-                <li>
-                  <strong>Analytics:</strong> Pandas, NumPy, SciPy
-                </li>
-                <li>
-                  <strong>Visualization:</strong> Power BI, Tableau, Looker
-                  Studio, Excel, Google Sheets
-                </li>
-                <li>
-                  <strong>Machine Learning:</strong> Scikit-learn, TensorFlow
-                </li>
-                <li>
-                  <strong>ETL:</strong> Power Query, Python ETL Pipelines,
-                  Apache Airflow
-                </li>
-                <li>
-                  <strong>Cloud:</strong> AWS, Azure, Google Cloud Platform
-                </li>
-                <li>
-                  <strong>Reporting:</strong> KPI Dashboards, Forecasting,
-                  Business Intelligence
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div className={styles.expertiseGrid}>
+          <article className={styles.expertiseCard}>
+            <h3>Engineering</h3>
+            <p>Modern stacks for web, mobile, APIs, and cloud deployment.</p>
+            <ul className={styles.tagList}>
+              {TECH_STACK.engineering.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          </article>
+          <article className={styles.expertiseCard}>
+            <h3>Data & intelligence</h3>
+            <p>Pipelines, dashboards, and analytics your leaders can act on.</p>
+            <ul className={styles.tagList}>
+              {TECH_STACK.analytics.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          </article>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className={styles.contact}>
-        <h2>Contact Us</h2>
+      <section id="contact" className={`${styles.section} ${styles.contactSection}`}>
+        <div className={styles.contactLayout}>
+          <div className={styles.contactInfo}>
+            <span className={styles.eyebrow}>Contact</span>
+            <h2>Let&apos;s talk about your next project</h2>
+            <p>
+              Tell us what you&apos;re building. We&apos;ll respond within one
+              business day with next steps.
+            </p>
+            <ul className={styles.contactMeta}>
+              <li>
+                <strong>Email</strong>
+                <span>hello@techsolvex.com</span>
+              </li>
+              <li>
+                <strong>Location</strong>
+                <span>Remote · Worldwide</span>
+              </li>
+            </ul>
+          </div>
 
-        <form className={styles.form}>
-          <input type="text" placeholder="Your Name" />
-
-          <input type="email" placeholder="Email Address" />
-
-          <textarea rows="5" placeholder="Your Message"></textarea>
-
-          <button>Send Message</button>
-        </form>
+          <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+            <input type="text" placeholder="Your name" aria-label="Your name" />
+            <input
+              type="email"
+              placeholder="Email address"
+              aria-label="Email address"
+            />
+            <textarea
+              rows={5}
+              placeholder="Tell us about your project"
+              aria-label="Message"
+            />
+            <button type="submit">Send message</button>
+          </form>
+        </div>
       </section>
 
-      {/* Footer */}
       <footer className={styles.footer}>
-        <p>© 2026 TechSolveX. All Rights Reserved.</p>
+        <div className={styles.footerInner}>
+          <div>
+            <p className={styles.footerBrand}>TechSolveX</p>
+            <p className={styles.footerTagline}>
+              Software development & data solutions.
+            </p>
+          </div>
+          <div className={styles.footerLinks}>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <Link href="/register">Register</Link>
+          </div>
+        </div>
+        <p className={styles.footerCopy}>© 2026 TechSolveX. All rights reserved.</p>
       </footer>
+
       <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-    </>
+    </div>
   );
 }

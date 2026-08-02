@@ -1,16 +1,13 @@
-"use client";
-import { useState } from "react";
+import { Suspense } from "react";
 
-import DefaultDashboard from "../components/defaultComponent/defaultDashboard";
-//import ProtectedDashboard from "./components/private/protectedDashboard";
+import DefaultDashboard from "@/components/defaultComponent/defaultDashboard";
 
 export default function Home() {
-  const [isLoggedin, setIsloggedin] = useState(false);
   return (
-    <div>
-      <main>
-        <div>{isLoggedin ? "logged in" : <DefaultDashboard />}</div>
-      </main>
-    </div>
+    <main>
+      <Suspense fallback={null}>
+        <DefaultDashboard />
+      </Suspense>
+    </main>
   );
 }

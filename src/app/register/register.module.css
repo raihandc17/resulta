@@ -88,6 +88,16 @@
   text-decoration: underline;
 }
 
+.error {
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
 @media (max-width: 500px) {
   .card {
     padding: 25px;
