@@ -18,6 +18,7 @@ export async function signSessionToken(user) {
     userId: user._id.toString(),
     email: user.email,
     name: user.name,
+    role: user.role ?? "general",
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuer(ISSUER)

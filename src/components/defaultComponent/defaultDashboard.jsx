@@ -2,8 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+
+import { submitContactMessage } from "@/actions/contact";
+import Toast from "@/components/Toast/Toast";
+import { CONTACT_TOAST } from "@/lib/contactMessages";
 
 import developerImg from "@/assets/developer.jpeg";
 import Button from "../Button/Button";
@@ -89,7 +93,33 @@ const TECH_STACK = {
 export default function DefaultDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [contactState, contactFormAction, contactPending] = useActionState(
+    submitContactMessage,
+    null,
+  );
+  const [contactToast, setContactToast] = useState(null);
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (!contactState) {
+      return;
+    }
+
+    if (contactState.success) {
+      setContactToast({
+        variant: "success",
+        message: CONTACT_TOAST.success,
+      });
+      return;
+    }
+
+    if (contactState.error) {
+      setContactToast({
+        variant: "error",
+        message: CONTACT_TOAST.error,
+      });
+    }
+  }, [contactState]);
 
   useEffect(() => {
     if (searchParams.get("login") === "true") {
@@ -302,20 +332,51 @@ export default function DefaultDashboard() {
             </ul>
           </div>
 
-          <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
-            <input type="text" placeholder="Your name" aria-label="Your name" />
+          <div className={styles.formWrap}>
+            {contactToast ? (
+              <Toast
+                placement="form"
+                variant={contactToast.variant}
+                message={contactToast.message}
+                onClose={() => setContactToast(null)}
+              />
+            ) : null}
+            <form
+              key={contactState?.formKey ?? "contact"}
+              className={styles.form}
+              action={contactFormAction}
+            >
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              aria-label="Your name"
+              required
+              minLength={2}
+              disabled={contactPending}
+            />
             <input
               type="email"
+              name="email"
               placeholder="Email address"
               aria-label="Email address"
+              required
+              disabled={contactPending}
             />
             <textarea
+              name="message"
               rows={5}
               placeholder="Tell us about your project"
               aria-label="Message"
+              required
+              minLength={10}
+              disabled={contactPending}
             />
-            <button type="submit">Send message</button>
-          </form>
+            <button type="submit" disabled={contactPending}>
+              {contactPending ? "Sending…" : "Send message"}
+            </button>
+            </form>
+          </div>
         </div>
       </section>
 

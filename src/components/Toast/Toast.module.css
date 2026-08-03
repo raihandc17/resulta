@@ -1,0 +1,124 @@
+.viewportFixed,
+.viewportContact,
+.viewportForm {
+  z-index: 20;
+  pointer-events: none;
+}
+
+.viewportFixed {
+  position: fixed;
+  left: 50%;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(540px, calc(100% - 24px));
+}
+
+.viewportContact {
+  position: absolute;
+  left: 50%;
+  top: clamp(88px, 14vh, 128px);
+  transform: translateX(-50%);
+  width: min(540px, calc(100% - 24px));
+}
+
+/* Anchored in .formWrap — mobile over email/message; desktop centers on .contactLayout */
+.viewportForm {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 16px);
+  top: 78px;
+}
+
+@media (min-width: 769px) {
+  .viewportForm {
+    top: clamp(88px, 14vh, 128px);
+    width: min(540px, calc(100vw - 48px));
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  box-shadow:
+    0 16px 48px rgba(15, 23, 42, 0.14),
+    0 4px 12px rgba(15, 23, 42, 0.08);
+  pointer-events: auto;
+  border: 1px solid transparent;
+  backdrop-filter: blur(8px);
+}
+
+.success .toast {
+  background: rgba(240, 253, 244, 0.96);
+  border-color: #bbf7d0;
+  color: #14532d;
+}
+
+.error .toast {
+  background: rgba(254, 242, 242, 0.96);
+  border-color: #fecaca;
+  color: #7f1d1d;
+}
+
+.message {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.close {
+  flex-shrink: 0;
+  margin: -4px -4px 0 0;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.65;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .viewportFixed {
+    animation: toastInFixed 0.28s ease-out;
+  }
+
+  .viewportContact,
+  .viewportForm {
+    animation: toastInContact 0.28s ease-out;
+  }
+}
+
+@keyframes toastInFixed {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes toastInContact {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

@@ -45,6 +45,13 @@
   white-space: nowrap;
 }
 
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
 .profilePill {
   padding: 4px 12px 4px 4px;
   gap: 10px;
@@ -126,6 +133,27 @@
   color: #64748b;
   text-align: center;
   width: 100%;
+}
+
+.sidebarHint {
+  margin: 0 8px 10px;
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.sidebarSuccess {
+  margin: 0 8px 10px;
+  font-size: 0.75rem;
+  color: #15803d;
+  text-align: center;
+}
+
+.sidebarError {
+  margin: 0 8px 10px;
+  font-size: 0.75rem;
+  color: #b91c1c;
+  text-align: center;
 }
 
 .sidebarList {
@@ -218,22 +246,300 @@
 }
 
 .logoutForm {
-  display: inline;
+  display: inline-flex;
   margin: 0;
 }
 
-.logoutLink {
-  border: none;
-  background: none;
-  padding: 0;
-  color: #2563eb;
+.logoutNavBtn {
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  color: #0f172a;
   font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
   cursor: pointer;
-  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
-.logoutLink:hover {
-  text-decoration: underline;
+.logoutNavBtn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.submissionsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.submissionsHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.submissionsIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.submissionsProfileLine {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.submissionsProfileValue {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.submissionsTitle {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.submissionsMeta {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 0.9375rem;
+}
+
+.roleBadgeAdmin,
+.roleBadgeGeneral {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.roleBadgeAdmin {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.roleBadgeGeneral {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.submissionsHint {
+  margin: 0;
+  max-width: 280px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.submissionsToolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.submissionsToolbarRow {
+  display: grid;
+  gap: 12px;
+  align-items: end;
+}
+
+.submissionsToolbarRow:first-child {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.submissionsToolbarRow:last-child {
+  grid-template-columns: minmax(200px, 280px) auto;
+  justify-content: start;
+  column-gap: 12px;
+}
+
+.filterFieldSort {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.filterField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.filterLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+.filterInput,
+.filterSelect,
+.statusSelect {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+
+.filterInput:focus,
+.filterSelect:focus,
+.statusSelect:focus {
+  outline: 2px solid rgba(37, 99, 235, 0.35);
+  border-color: #2563eb;
+}
+
+.filterClearBtn {
+  box-sizing: border-box;
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 1px solid #0f172a;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.filterClearBtn:hover:not(:disabled) {
+  background: #0f172a;
+  color: #fff;
+}
+
+.filterClearBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #94a3b8;
+  color: #64748b;
+}
+
+.submissionsError {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.875rem;
+}
+
+.submissionsDivider {
+  margin: 0;
+  border: none;
+  height: 0;
+  border-top: 1px solid rgba(15, 23, 42, 0.27);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.submissionsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.submissionsTable th,
+.submissionsTable td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.submissionsTable th {
+  background: #f8fafc;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+.submissionsTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.messageCell {
+  max-width: 280px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.tableEmpty {
+  text-align: center;
+  color: #64748b;
+  padding: 32px 14px !important;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status_pending {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.status_in_progress {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status_complete {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.statusSelect.status_pending {
+  border-color: #fde047;
+}
+
+.statusSelect.status_in_progress {
+  border-color: #93c5fd;
+}
+
+.statusSelect.status_complete {
+  border-color: #86efac;
+}
+
+.statusSelect.status_pending,
+.statusSelect.status_in_progress,
+.statusSelect.status_complete {
+  font-weight: 600;
 }
 
 .placeholder {
@@ -265,6 +571,15 @@
   .main {
     margin-left: 0;
     padding: 24px 16px 40px;
+  }
+
+  .submissionsToolbarRow:first-child,
+  .submissionsToolbarRow:last-child {
+    grid-template-columns: 1fr;
+  }
+
+  .filterClearBtn {
+    width: 100%;
   }
 }
 

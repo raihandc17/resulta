@@ -1,22 +1,27 @@
 import { redirect } from "next/navigation";
 
 import DashboardShell from "@/components/dashboard/DashboardShell";
-import { getSession } from "@/lib/session";
+import { getCurrentUser } from "@/lib/authServer";
+import { resolveSidebarItems } from "@/lib/dashboardNav";
+
+export const dynamic = "force-dynamic";
 
 export default async function DashboardLayout({ children }) {
-  const session = await getSession();
+  const user = await getCurrentUser();
 
-  if (!session) {
+  if (!user) {
     redirect("/?login=true");
   }
 
-  const userName =
-    typeof session.name === "string" ? session.name : "User";
-  const userEmail =
-    typeof session.email === "string" ? session.email : undefined;
+  const sidebarItems = resolveSidebarItems(user.sidebarOrder);
 
   return (
-    <DashboardShell userName={userName} userEmail={userEmail}>
+    <DashboardShell
+      userName={user.name}
+      userEmail={user.email}
+      userRole={user.role ?? "general"}
+      sidebarItems={sidebarItems}
+    >
       {children}
     </DashboardShell>
   );

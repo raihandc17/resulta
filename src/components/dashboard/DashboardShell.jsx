@@ -14,44 +14,51 @@ function getInitials(name) {
     .toUpperCase();
 }
 
-export default function DashboardShell({ userName, userEmail, children }) {
+export default function DashboardShell({
+  userName,
+  userEmail,
+  userRole,
+  sidebarItems,
+  children,
+}) {
   const displayName = userName?.trim() || "User";
   const initials = getInitials(displayName);
+  const roleLabel = userRole === "admin" ? "Admin" : "General";
 
   return (
     <div className={styles.root}>
       <header className={styles.header}>
         <div className={styles.companyPill}>Company name</div>
 
-        <div className={styles.profilePill}>
-          <span className={styles.avatar} aria-hidden>
-            {initials}
-          </span>
-          <span className={styles.profileName}>{displayName}</span>
-          <button
-            type="button"
-            className={styles.editBtn}
-            aria-label="Edit profile"
-          >
-            <EditIcon />
-          </button>
+        <div className={styles.headerRight}>
+          <div className={styles.profilePill}>
+            <span className={styles.avatar} aria-hidden>
+              {initials}
+            </span>
+            <span className={styles.profileName}>{displayName}</span>
+            <button
+              type="button"
+              className={styles.editBtn}
+              aria-label="Edit profile"
+            >
+              <EditIcon />
+            </button>
+          </div>
+          <form action={logoutUser} className={styles.logoutForm}>
+            <button type="submit" className={styles.logoutNavBtn}>
+              Log out
+            </button>
+          </form>
         </div>
       </header>
 
       <div className={styles.layout}>
-        <DashboardSidebar />
+        <DashboardSidebar
+          key={userEmail ?? userName}
+          initialItems={sidebarItems}
+        />
 
-        <main className={styles.main}>
-          <div className={styles.subtitle}>
-            <span>Signed in as {userEmail ?? displayName}</span>
-            <form action={logoutUser} className={styles.logoutForm}>
-              <button type="submit" className={styles.logoutLink}>
-                Log out
-              </button>
-            </form>
-          </div>
-          {children}
-        </main>
+        <main className={styles.main}>{children}</main>
       </div>
     </div>
   );

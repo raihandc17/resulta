@@ -26,6 +26,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    role: {
+      type: String,
+      enum: ["general", "admin"],
+      default: "general",
+    },
+
+    sidebarOrder: {
+      type: [String],
+      default: undefined,
+    },
   },
   {
     // Automatically adds:
@@ -35,12 +46,8 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-// If the User model already exists, reuse it.
-// Otherwise, create it.
-//
-// Prevents:
-// OverwriteModelError: Cannot overwrite 'User' model once compiled.
-const User =
-  mongoose.models.User || mongoose.model("User", userSchema);
+if (process.env.NODE_ENV !== "production") {
+  delete mongoose.models.User;
+}
 
-export default User;
+export default mongoose.models.User || mongoose.model("User", userSchema);

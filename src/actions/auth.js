@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 
 import { connectDB } from "@/lib/db";
+import { resolveRoleForNewUser } from "@/lib/roles";
+import { patchUserDocument } from "@/lib/userDocument";
 import User from "@/models/User";
 import { clearSession, createSession } from "@/lib/session";
 
@@ -76,6 +78,7 @@ export async function registerUser(prevState, formData) {
       name,
       email,
       passwordHash,
+      role: resolveRoleForNewUser(email),
     });
   } catch (err) {
     console.error("Register error:", err);
@@ -122,6 +125,18 @@ export async function loginUser(formData) {
       return {
         error: "Invalid email or password.",
       };
+    }
+
+    const validRoles = new Set(["general", "admin"]);
+    const patches = {};
+
+    if (!user.role || !validRoles.has(user.role)) {
+      patches.role = resolveRoleForNewUser(email);
+    }
+
+    if (Object.keys(patches).length > 0) {
+      await patchUserDocument(user._id.toString(), patches);
+      Object.assign(user, patches);
     }
 
     await createSession(user);
