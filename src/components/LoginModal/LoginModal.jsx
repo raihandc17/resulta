@@ -29,7 +29,7 @@ export default function LoginModal({ isOpen, onClose }) {
     }
 
     onClose();
-    router.push("/dashboard");
+    router.push("/dashboard/overview");
     router.refresh();
   }
 
