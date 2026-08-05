@@ -4,13 +4,16 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 
 import { connectDB } from "@/lib/db";
+import {
+  validatePassword,
+  validatePasswordMatch,
+} from "@/lib/password";
 import { resolveRoleForNewUser } from "@/lib/roles";
 import { patchUserDocument } from "@/lib/userDocument";
 import User from "@/models/User";
 import { clearSession, createSession } from "@/lib/session";
 
 const MIN_NAME_LENGTH = 2;
-const MIN_PASSWORD_LENGTH = 8;
 const SALT_ROUNDS = 10;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -45,17 +48,14 @@ export async function registerUser(prevState, formData) {
   }
 
   // Password validation
-  if (password.length < MIN_PASSWORD_LENGTH) {
-    return {
-      error: `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`,
-    };
+  const passwordCheck = validatePassword(password);
+  if (!passwordCheck.ok) {
+    return { error: passwordCheck.error };
   }
 
-  // Confirm password
-  if (password !== confirmPassword) {
-    return {
-      error: "Passwords do not match.",
-    };
+  const matchCheck = validatePasswordMatch(password, confirmPassword);
+  if (!matchCheck.ok) {
+    return { error: matchCheck.error };
   }
 
   try {

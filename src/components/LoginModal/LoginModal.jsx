@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { loginUser } from "@/actions/auth";
+import { DEFAULT_DASHBOARD_SECTION } from "@/lib/dashboardNav";
 import styles from "./LoginModal.module.css";
 
 export default function LoginModal({ isOpen, onClose }) {
@@ -29,7 +31,7 @@ export default function LoginModal({ isOpen, onClose }) {
     }
 
     onClose();
-    router.push("/dashboard/overview");
+    router.push(`/dashboard/${DEFAULT_DASHBOARD_SECTION}`);
     router.refresh();
   }
 
@@ -63,6 +65,16 @@ export default function LoginModal({ isOpen, onClose }) {
             autoComplete="current-password"
             required
           />
+
+          <p className={styles.forgotRow}>
+            <Link
+              href="/forgot-password"
+              className={styles.forgotLink}
+              onClick={onClose}
+            >
+              Forgot password?
+            </Link>
+          </p>
 
           <button type="submit" disabled={isPending}>
             {isPending ? "Logging in…" : "Login"}

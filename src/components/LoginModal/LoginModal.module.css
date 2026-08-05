@@ -63,3 +63,19 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+.forgotRow {
+  margin: -4px 0 0;
+  text-align: right;
+}
+
+.forgotLink {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.forgotLink:hover {
+  text-decoration: underline;
+}

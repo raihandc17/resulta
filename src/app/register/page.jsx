@@ -1,21 +1,23 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { registerUser } from "@/actions/auth";
+import PasswordRequirements from "@/components/auth/PasswordRequirements";
 import Button from "@/components/Button/Button";
 import styles from "./register.module.css";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [password, setPassword] = useState("");
   const [state, formAction, isPending] = useActionState(registerUser, null);
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
         <h1>Create Account</h1>
-        <p>Join TechSolveX today.</p>
+        <p className={styles.subtitle}>Join TechSolveX today.</p>
 
         {state?.error ? (
           <p className={styles.error} role="alert">
@@ -55,7 +57,10 @@ export default function RegisterPage() {
               placeholder="Create a password"
               minLength={8}
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+            <PasswordRequirements password={password} />
           </div>
 
           <div className={styles.inputGroup}>

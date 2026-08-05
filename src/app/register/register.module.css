@@ -22,7 +22,7 @@
   color: #2563eb;
 }
 
-.card p {
+.card .subtitle {
   text-align: center;
   color: #666;
   margin-bottom: 30px;
@@ -88,7 +88,7 @@
   text-decoration: underline;
 }
 
-.error {
+.card .error {
   color: #dc2626;
   background: #fef2f2;
   border: 1px solid #fecaca;
@@ -96,6 +96,38 @@
   border-radius: 8px;
   margin-bottom: 16px;
   font-size: 14px;
+  text-align: left;
+}
+
+.card .success,
+.card .successMessage {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.devHint {
+  margin-top: 12px;
+  padding: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #1e3a8a;
+  text-align: left;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.devHint a {
+  color: #2563eb;
+  font-weight: 600;
 }
 
 @media (max-width: 500px) {
