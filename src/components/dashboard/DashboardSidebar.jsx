@@ -138,7 +138,10 @@ export default function DashboardSidebar({ initialItems }) {
       ) : null}
       <ul className={styles.sidebarList}>
         {items.map((item, index) => {
-          const href = `/dashboard/${item.id}`;
+          const href =
+            item.id === "shopping"
+              ? "/dashboard/shopping/products"
+              : `/dashboard/${item.id}`;
           const isActive = pathname === href || pathname.startsWith(`${href}/`);
           const isDragging = dragIndex === index;
           const isOver = overIndex === index && dragIndex !== index;

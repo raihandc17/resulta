@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import SubmissionsPanel from "@/components/dashboard/SubmissionsPanel";
 import styles from "@/components/dashboard/Dashboard.module.css";
@@ -18,6 +18,10 @@ export function generateStaticParams() {
 
 export default async function DashboardSectionPage({ params }) {
   const { section } = await params;
+
+  if (section === "shopping") {
+    redirect("/dashboard/shopping/products");
+  }
 
   if (!isDashboardSection(section)) {
     notFound();

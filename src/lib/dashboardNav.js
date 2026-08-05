@@ -1,9 +1,10 @@
 export const DASHBOARD_SECTIONS = [
-  { id: "overview", label: "Overview" },
+  //{ id: "overview", label: "Overview" },
   { id: "projects", label: "Projects" },
-  { id: "analytics", label: "Analytics" },
-  { id: "clients", label: "Clients" },
-  { id: "reports", label: "Reports" },
+  //{ id: "analytics", label: "Analytics" },
+  //{ id: "clients", label: "Clients" },
+  //{ id: "reports", label: "Reports" },
+  { id: "shopping", label: "Shopping" },
   { id: "settings", label: "Settings" },
 ];
 
