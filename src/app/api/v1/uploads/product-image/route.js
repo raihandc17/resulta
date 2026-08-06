@@ -7,6 +7,10 @@ import {
   jsonError,
   requireApiAdmin,
 } from "@/lib/api/auth";
+import {
+  isCloudinaryConfigured,
+  uploadProductImageToCloudinary,
+} from "@/lib/cloudinary";
 
 const MAX_BYTES = 4 * 1024 * 1024;
 
@@ -45,18 +49,31 @@ export async function POST(request) {
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = `${randomUUID()}${ext}`;
-  const uploadDir = path.join(process.cwd(), "public", "uploads", "products");
-  const absolutePath = path.join(uploadDir, filename);
 
   try {
+    if (isCloudinaryConfigured()) {
+      const url = await uploadProductImageToCloudinary(buffer, file.type);
+      return jsonData({ url }, 201);
+    }
+
+    if (process.env.NODE_ENV === "production") {
+      return jsonError(
+        "Image upload is not configured. Add Cloudinary environment variables on the server.",
+        503,
+      );
+    }
+
+    const filename = `${randomUUID()}${ext}`;
+    const uploadDir = path.join(process.cwd(), "public", "uploads", "products");
+    const absolutePath = path.join(uploadDir, filename);
+
     await mkdir(uploadDir, { recursive: true });
     await writeFile(absolutePath, buffer);
+
+    const url = `/uploads/products/${filename}`;
+    return jsonData({ url }, 201);
   } catch (err) {
     console.error("[api/v1/uploads/product-image POST]", err);
     return jsonError("Unable to save image.", 500);
   }
-
-  const url = `/uploads/products/${filename}`;
-  return jsonData({ url }, 201);
 }
