@@ -11,9 +11,9 @@
 }
 
 .modal {
-  width: 400px;
+  width: 300px;
   background: white;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 30px;
   position: relative;
 }
