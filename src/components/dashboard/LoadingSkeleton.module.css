@@ -1,0 +1,226 @@
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.block {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 0%,
+    #f1f5f9 45%,
+    #e2e8f0 90%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.35s ease-in-out infinite;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.toolbarItem {
+  height: 40px;
+  border-radius: 8px;
+  flex: 1 1 140px;
+  max-width: 220px;
+}
+
+.tableWrap {
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.tableHead {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.4fr 0.9fr;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.tableHeadCell {
+  height: 14px;
+  border-radius: 4px;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.4fr 0.9fr;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableCell {
+  height: 16px;
+  border-radius: 4px;
+}
+
+.tableCellWide {
+  height: 36px;
+}
+
+.ordersHead {
+  grid-template-columns: 0.9fr 1.2fr 0.8fr 1fr 0.7fr 0.8fr 0.9fr;
+}
+
+.ordersRow {
+  grid-template-columns: 0.9fr 1.2fr 0.8fr 1fr 0.7fr 0.8fr 0.9fr;
+}
+
+.shopHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.title {
+  height: 32px;
+  width: min(180px, 60%);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  height: 36px;
+  width: 88px;
+  border-radius: 999px;
+}
+
+.tabWide {
+  width: 72px;
+}
+
+.addBtn {
+  height: 44px;
+  width: 140px;
+  border-radius: 999px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardMedia {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+}
+
+.cardBody {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lineLg {
+  height: 18px;
+  width: 75%;
+}
+
+.lineSm {
+  height: 14px;
+  width: 50%;
+}
+
+.lineBtn {
+  height: 36px;
+  width: 100%;
+  margin-top: 4px;
+  border-radius: 8px;
+}
+
+.cartBlock {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 520px;
+}
+
+.cartLine {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.cartThumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.cartText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.placeholderBlock {
+  height: 120px;
+  max-width: 480px;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block {
+    animation: none;
+    background: #e2e8f0;
+  }
+}

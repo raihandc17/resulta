@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import Toast from "@/components/Toast/Toast";
+import { ShopDataSkeleton } from "@/components/dashboard/LoadingSkeleton";
 import { useShoppingCart } from "@/components/dashboard/ShoppingCartProvider";
 import { cartLineKey } from "@/lib/shop/cartStorage";
 import {
@@ -1026,7 +1027,7 @@ export default function ShoppingPanel({ userRole, activeTab = "products" }) {
           )}
         </div>
       ) : loading ? (
-        <p className={styles.shopMuted}>Loading…</p>
+        <ShopDataSkeleton tab={tab} contentOnly />
       ) : tab === "orders" ? (
         <div className={styles.tableWrap}>
           <table className={styles.submissionsTable}>
